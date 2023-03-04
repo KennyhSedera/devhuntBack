@@ -36,7 +36,7 @@ async function initialize () {
     db.Action = require("./ActionModel")(sequelize, Sequelize);
     db.Annee = require("./AnneeUnivModel")(sequelize, Sequelize);
     db.Commentaire = require("./CommentaireModel")(sequelize, Sequelize);
-    db.Etudient = require("./EtudientModel")(sequelize, Sequelize);
+    db.Etudiant = require("./EtudientModel")(sequelize, Sequelize);
     db.Message = require("./MessageModel")(sequelize, Sequelize);
     db.Niveau = require("./NiveauModel")(sequelize, Sequelize);
     db.Parcours = require("./ParcoursModel")(sequelize, Sequelize);
@@ -45,50 +45,48 @@ async function initialize () {
     db.Matier = require("./MatierModel")(sequelize, Sequelize);
     db.Groupe = require("./GroupeMessage")(sequelize, Sequelize);
 
-    db.Etudient.hasMany(db.Parcours, { foreignKey: 'id_parcour' });
-    db.Parcours.belongsTo(db.Etudient, { foreignKey: 'id_parcour' });
+    db.Parcours.hasMany(db.Etudiant, { foreignKey: 'id_parcour' });
+    db.Etudiant.belongsTo(db.Parcours, { foreignKey: 'id_parcour' });
 
-    db.Commentaire.hasMany(db.Etudient, { foreignKey: 'id_etudient' });
-    db.Etudient.belongsTo(db.Commentaire, { foreignKey: 'id_etudient' });
+    db.Etudiant.hasMany(db.Commentaire, { foreignKey: 'id_etudiant' });
+    db.Commentaire.belongsTo(db.Etudiant, { foreignKey: 'id_etudiant' });
 
-    db.Etudient.hasMany(db.Niveau, { foreignKey: 'id_niveau' });
-    db.Niveau.belongsTo(db.Etudient, { foreignKey: 'id_niveau' });
+    db.Etudiant.hasMany(db.Action, { foreignKey: 'id_etudiant' });
+    db.Action.belongsTo(db.Etudiant, { foreignKey: 'id_etudiant' });
 
-    db.Etudient.hasMany(db.Action, { foreignKey: 'id_action' });
-    db.Action.belongsTo(db.Etudient, { foreignKey: 'id_action' });
+    db.Etudiant.hasMany(db.Publication, { foreignKey: 'id_etudiant' });
+    db.Publication.belongsTo(db.Etudiant, { foreignKey: 'id_etudiant' });
 
-    db.Publication.hasMany(db.Etudient, { foreignKey: 'id_etudient' });
-    db.Etudient.belongsTo(db.Publication, { foreignKey: 'id_etudient' });
+    db.Domaine.hasMany(db.Publication, { foreignKey: 'id_domaine' });
+    db.Publication.belongsTo(db.Domaine, { foreignKey: 'id_domaine' });
 
-    db.Message.hasMany(db.Etudient, { foreignKey: 'id_etudient' });
-    db.Etudient.belongsTo(db.Message, { foreignKey: 'id_etudient' });
+    db.Etudiant.belongsToMany(db.Groupe, { through: 'Groupe_etudiant' });
+    db.Groupe.belongsToMany(db.Etudiant, { through: 'Groupe_etudiant' });
 
-    db.Publication.hasMany(db.Domaine, { foreignKey: 'id_domaine' });
-    db.Domaine.belongsTo(db.Publication, { foreignKey: 'id_domaine' });
+    db.Publication.hasMany(db.Commentaire, { foreignKey: 'id_pub' });
+    db.Commentaire.belongsTo(db.Publication, { foreignKey: 'id_pub' });
 
-    db.Groupe.hasMany(db.Etudient, { foreignKey: 'id_etudient' });
-    db.Etudient.belongsTo(db.Groupe, { foreignKey: 'id_etudient' });
-
-    db.Commentaire.hasMany(db.Publication, { foreignKey: 'id_pub' });
-    db.Publication.belongsTo(db.Commentaire, { foreignKey: 'id_pub' });
-
-    db.Etudient.belongsToMany(db.Annee, { through: 'Niveau_etudiant' });
-    db.Annee.belongsToMany(db.Etudient, { through: 'Niveau_etudiant' });
+    db.Etudiant.belongsToMany(db.Annee, { through: 'Niveau_etudiant' });
+    db.Annee.belongsToMany(db.Etudiant, { through: 'Niveau_etudiant' });
+    db.Niveau.belongsToMany(db.Annee, { through: 'Niveau_etudiant' });
+    db.Niveau.belongsToMany(db.Etudiant, { through: 'Niveau_etudiant' });
+    db.Etudiant.belongsToMany(db.Niveau, { through: 'Niveau_etudiant' });
+    db.Annee.belongsToMany(db.Niveau, { through: 'Niveau_etudiant' });
 
     db.Publication.belongsToMany(db.Matier, { through: 'Pub_Matier' });
     db.Matier.belongsToMany(db.Publication, { through: 'Pub_Matier' });
 
-    db.Commentaire.belongsToMany(db.Etudient, { through: 'Reponse' });
-    db.Etudient.belongsToMany(db.Commentaire, { through: 'Reponse' });
+    db.Commentaire.belongsToMany(db.Etudiant, { through: 'Reponse' });
+    db.Etudiant.belongsToMany(db.Commentaire, { through: 'Reponse' });
  
-    db.Etudient.hasMany(db.Message,{foreignKey: {name : 'id_usersend'}})
-    db.Message.belongsTo(db.Etudient,{foreignKey: {name : 'id_usersend'},as:'UserSend'})
+    db.Etudiant.hasMany(db.Message,{foreignKey: {name : 'id_usersend'}})
+    db.Message.belongsTo(db.Etudiant,{foreignKey: {name : 'id_usersend'},as:'UserSend'})
  
-    db.Etudient.hasMany(db.Message,{foreignKey: {name : 'id_userreceive'}})
-    db.Message.belongsTo(db.Etudient,{foreignKey: {name : 'id_userreceive'},as:'UserReceived'})
+    db.Etudiant.hasMany(db.Message,{foreignKey: {name : 'id_userreceive'}})
+    db.Message.belongsTo(db.Etudiant,{foreignKey: {name : 'id_userreceive'},as:'UserReceived'})
 
-    db.Etudient.hasMany(db.Message,{foreignKey: {name : 'vu'}})
-    db.Message.belongsTo(db.Etudient,{foreignKey: {name : 'vu'},as:'UserV'})
+    // db.Etudiant.hasMany(db.Message,{foreignKey: {name : 'vu'}})
+    // db.Message.belongsTo(db.Etudiant,{foreignKey: {name : 'vu'},as:'UserV'})
 
 
 module.exports = db;
