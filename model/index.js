@@ -67,11 +67,9 @@ async function initialize () {
     db.Commentaire.belongsTo(db.Publication, { foreignKey: 'id_pub' });
 
     db.Etudiant.belongsToMany(db.Annee, { through: 'Niveau_etudiant' });
-    db.Annee.belongsToMany(db.Etudiant, { through: 'Niveau_etudiant' });
-    db.Niveau.belongsToMany(db.Annee, { through: 'Niveau_etudiant' });
-    db.Niveau.belongsToMany(db.Etudiant, { through: 'Niveau_etudiant' });
     db.Etudiant.belongsToMany(db.Niveau, { through: 'Niveau_etudiant' });
-    db.Annee.belongsToMany(db.Niveau, { through: 'Niveau_etudiant' });
+    db.Annee.belongsToMany(db.Etudiant, { through: 'Niveau_etudiant' });
+    db.Niveau.belongsToMany(db.Etudiant, { through: 'Niveau_etudiant' });
 
     db.Publication.belongsToMany(db.Matier, { through: 'Pub_Matier' });
     db.Matier.belongsToMany(db.Publication, { through: 'Pub_Matier' });
