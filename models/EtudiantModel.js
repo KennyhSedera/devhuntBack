@@ -2,9 +2,9 @@ var Promise = require('bluebird');
 const bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'));
 
 module.exports = (sequelize, Sequelize)=>{
-    const etudient = sequelize.define("Etudiant", {
+    const Etudiant = sequelize.define("Etudiant", {
         id_user: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
-        matricule:{ type:Sequelize.INTEGER, },
+        matricule:{ type:Sequelize.STRING, },
         nom:{ type: Sequelize.STRING, allowNull: false },
         prenom:{ type: Sequelize.STRING, allowNull: false },
         email:{ type: Sequelize.STRING, allowNull: false },
@@ -20,22 +20,22 @@ module.exports = (sequelize, Sequelize)=>{
             set(value) {
                 bcrypt.genSaltAsync(10)
                 .then(salt => bcrypt.hashSync(value, salt)) 
-                .then(hash => this.setDataValue('Password', hash));
+                .then(hash => this.setDataValue('password', hash));
             } 
         },
         password_Recup:{ type:Sequelize.STRING,
             set(value) {
                 bcrypt.genSaltAsync(10)
                 .then(salt => bcrypt.hashSync(value, salt)) 
-                .then(hash => this.setDataValue('Password', hash));
+                .then(hash => this.setDataValue('password_Recup', hash));
             } 
         },
     },{
         freezeTableName: true,
         timestamps: true 
     });
-    etudient.prototype.comparePassword = function(Password){
+    Etudiant.prototype.comparePassword = function(Password){
         return bcrypt.compareAsync(Password, this.Password)
     }
-    return etudient
+    return Etudiant
 }

@@ -1,16 +1,16 @@
 module.exports = (sequelize, Sequelize)=>{
-    const Matier = sequelize.define("Matier",{
-        id_matier:{
+    const matiere = sequelize.define("matiere",{
+        id_matiere:{
             type:Sequelize.INTEGER,
             primaryKey:true,
             autoIncrement:true
         },
-        nom_matier:{
+        nom_matiere:{
             type:Sequelize.STRING
         }
     },{
         freezeTableName: true,
         timestamps: true 
     })
-    return Matier
+    return matiere
 }

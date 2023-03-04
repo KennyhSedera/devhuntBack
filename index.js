@@ -1,13 +1,22 @@
 const path = require('path');
 const express = require('express');
 const app = express();
+const PORT = 3030;
 const bodyParser = require('body-parser');
-const {sequelize} = require('./model/index');
-const route = require('./route/route');
+const {sequelize} = require('./models/index');
+const etudiantRouter = require('./route/etudiant.route');
+const actionRouter = require('./route/action.route');
+const anneeunivRouter = require('./route/anneeuniv.route');
+const commentaireRouter = require('./route/commentaire.route');
+const messageRouter = require('./route/message.route');
+const niveauRouter = require('./route/niveau.route');
+const parcourRouter = require('./route/parcour.route');
+const publicationRouter = require('./route/publication.route');
+const matierRouter = require('./route/matier.route');
+const domaineRouter = require('./route/domaine.route');
 const cors = require('cors');
 const morgan = require('morgan');
 // const cookieParser = require('cookie-parser');
-const PORT = 8080;
 
 
 app.set('views', path.join(__dirname,'views'));
@@ -21,7 +30,16 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(cors(Option));
 app.use(morgan('dev'))
-app.use(route);
+app.use(etudiantRouter);
+app.use(actionRouter);
+app.use(anneeunivRouter);
+app.use(commentaireRouter);
+app.use(messageRouter);
+app.use(niveauRouter);
+app.use(parcourRouter);
+app.use(publicationRouter);
+app.use(matierRouter);
+app.use(domaineRouter);
 // app.use('/Images', express.static('./Images'))
 
 
