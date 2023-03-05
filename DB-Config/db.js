@@ -1,9 +1,9 @@
 module.exports = {
-    DATABASE: 'devhunt',
-    USER: 'root',
-    PASSWORD: 'qwerty',
+    DATABASE: 'sql8603190',
+    USER: 'sql8603190',
+    PASSWORD: 'tFWKAsVbYU',
     Option:{
-        HOST: 'localhost',
+        HOST: 'sql8.freesqldatabase.com',
         dialect: 'mysql'
     }
 }
