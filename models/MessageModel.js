@@ -5,6 +5,10 @@ module.exports = (sequelize, Sequelize)=>{
             primaryKey:true,
             autoIncrement:true
         },
+        continue_message:{
+            type:Sequelize.STRING,
+            allowNull:false
+        }
     },{
         freezeTableName: true,
         timestamps: true 

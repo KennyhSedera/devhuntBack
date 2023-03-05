@@ -14,6 +14,9 @@ const parcourRouter = require('./route/parcour.route');
 const publicationRouter = require('./route/publication.route');
 const matierRouter = require('./route/matier.route');
 const domaineRouter = require('./route/domaine.route');
+const reponseRouter = require('./route/reponse.route');
+const groupeRouter = require('./route/groupe.route');
+const GEtudiantRouter = require('./route/GEtudiant.route');
 const cors = require('cors');
 const morgan = require('morgan');
 // const cookieParser = require('cookie-parser');
@@ -40,6 +43,9 @@ app.use(parcourRouter);
 app.use(publicationRouter);
 app.use(matierRouter);
 app.use(domaineRouter);
+app.use(reponseRouter);
+app.use(groupeRouter);
+app.use(GEtudiantRouter);
 // app.use('/Images', express.static('./Images'))
 
 

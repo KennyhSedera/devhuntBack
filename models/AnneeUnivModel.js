@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize)=>{
-    const Annee = sequelize.define("Annee univ",{
+    const Annee = sequelize.define("AnneeUniversitaire",{
         id_annee:{
             type:Sequelize.INTEGER,
             primaryKey:true,

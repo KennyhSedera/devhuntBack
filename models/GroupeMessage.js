@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize)=>{
-    const Groupe = sequelize.define("Groupe Messanger",{
+    const Groupe = sequelize.define("GroupeMessanger",{
         id_groupe:{
             type:Sequelize.INTEGER,
             primaryKey:true,
