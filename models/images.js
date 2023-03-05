@@ -9,7 +9,7 @@ let storage = multer.diskStorage({
         cb(null, __basedir + "/ressources/static/assets/uploads/")
     },
     filename: (req,file,cb)=>{
-      cb(null,`${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
+      cb(null, file.originalname)
     }
 })
 let uploadFile = multer({
@@ -22,16 +22,7 @@ let uploadFileMiddleWare = util.promisify(uploadFile)
 module.exports = {
     uploadFileMiddleWare,
     async register(req, res){
-        const urlimg = `http://localhost:3030/uploads/${req.filename}`
-    const body = {
-        sujet:req.body.sujet,
-        approuvate:req.body.approuvate,
-        statut_pub:req.body.statut_pub,
-        id_etudiant:req.body.id_etudiant,
-        id_domaine:req.body.id_domaine,
-        imageUrl:urlimg
-    }
-    const publication = await Publication.create(body)
+    const publication = await Publication.create(req.body)
     
     
     // 2. Find the Classes row

@@ -7,7 +7,7 @@ const imgControlaire = require('../controllers/images.controller')
 //publication
 app.get('/publication',publicationController.index)
 
-app.post('/publication', imgControlaire.upload, upload.register)
+app.post('/publication', upload.uploadFileMiddleWare, upload.register)
 
 app.get('/publication/:id_pub',publicationController.show)
 

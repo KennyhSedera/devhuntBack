@@ -34,8 +34,8 @@ module.exports = (sequelize, Sequelize)=>{
         freezeTableName: true,
         timestamps: true 
     });
-    Etudiant.prototype.comparePassword = function(Password){
-        return bcrypt.compareAsync(Password, this.Password)
+    Etudiant.prototype.comparePassWord = function(password){
+        return bcrypt.compareSync(password, this.password)
     }
     return Etudiant
 }

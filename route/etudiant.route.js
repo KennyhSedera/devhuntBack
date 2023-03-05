@@ -2,6 +2,7 @@ const express = require('express')
 const app = express.Router()
 
 const etudiantController =require('../controllers/etudiant.controllers')
+const signin =require('../controllers/auth.controller')
 const etudiantControllerPolicy =require('../policies/etudiantControllerPolicy')
 //etudiant
 app.get('/etudiant', etudiantController.index)
@@ -17,5 +18,7 @@ app.get('/beforeUpdate/:id_user', etudiantControllerPolicy.beforeUpdated)
 app.put('/etudiant/:id_user', etudiantController.update)
 
 app.delete('/etudiant/:id_user', etudiantController.delete)
+
+app.post('/signin', signin.login)
 
 module.exports = app
