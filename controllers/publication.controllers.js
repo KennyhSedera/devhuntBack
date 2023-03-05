@@ -76,5 +76,6 @@ module.exports = {
             err.message||"Une erreur se produite lors de l'ajout de ce Publication "
         })
     });
+
     }
 }
