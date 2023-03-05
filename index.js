@@ -16,7 +16,8 @@ const matierRouter = require('./route/matier.route');
 const domaineRouter = require('./route/domaine.route');
 const reponseRouter = require('./route/reponse.route');
 const groupeRouter = require('./route/groupe.route');
-const GEtudiantRouter = require('./route/GEtudiant.route');
+const GEtudiantRouter = require('./route/reaction.commentaire.route');
+const reactionComRouter = require('./route/reaction.commentaire.route');
 const cors = require('cors');
 const morgan = require('morgan');
 // const cookieParser = require('cookie-parser');
@@ -46,6 +47,7 @@ app.use(domaineRouter);
 app.use(reponseRouter);
 app.use(groupeRouter);
 app.use(GEtudiantRouter);
+app.use(reactionComRouter);
 // app.use('/Images', express.static('./Images'))
 
 

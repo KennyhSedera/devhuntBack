@@ -2,6 +2,8 @@ const Table = require('../models/index')
 const Commentaire = Table.Commentaire
 const Etudiant = Table.Etudiant
 const Publication = Table.Publication
+const Domaine = Table.Domaine
+const Matiere = Table.Matiere
 
 module.exports = {
    async add (req, res){
@@ -32,7 +34,7 @@ module.exports = {
     async index (req,res){
         await Commentaire.findAll({
           where:{id_pub: req.params.id_pub},
-          include:[Etudiant,Publication]
+          include:[{model:Etudiant},{model:Publication, include:[Domaine, Matiere]}]
         })
         .then(data=>{
           res.send({Commentaire :data})

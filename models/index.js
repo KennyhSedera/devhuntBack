@@ -45,6 +45,7 @@ async function initialize () {
     db.Matiere = require("./MatiereModel")(sequelize, Sequelize);
     db.Groupe = require("./GroupeMessage")(sequelize, Sequelize);
     db.Reponse = require("./ReponseModel")(sequelize, Sequelize);
+    db.ReactionCommentaire = require("./ReactionCommentaireModel")(sequelize, Sequelize);
     db.Groupe_etudiant = sequelize.define( "Groupe_etudiant", {}, { timestamps: false });
     db.Pub_Matiere = sequelize.define( "Pub_Matiere", {}, { timestamps: false });
     db.Niveau_etudiant = sequelize.define( "Niveau_etudiant", {}, { timestamps: false });
@@ -67,8 +68,11 @@ async function initialize () {
     db.Domaine.hasMany(db.Publication, { foreignKey: 'id_domaine' });
     db.Publication.belongsTo(db.Domaine, { foreignKey: 'id_domaine' });
 
-    // db.Etudiant.hasMany(db.Groupe_etudiant, { foreignKey: 'id_etudient' });
-    // db.Groupe_etudiant.belongsTo(db.Etudiant, { foreignKey: 'id_etudient' });
+    db.Commentaire.hasMany(db.ReactionCommentaire, { foreignKey: 'id_commentaire' });
+    db.ReactionCommentaire.belongsTo(db.Commentaire, { foreignKey: 'id_commentaire' });
+
+    db.Etudiant.hasMany(db.ReactionCommentaire, { foreignKey: 'id_user' });
+    db.ReactionCommentaire.belongsTo(db.Etudiant, { foreignKey: 'id_user' });
 
     db.Etudiant.belongsToMany(db.Groupe, { through: db.Groupe_etudiant, foreignKey:'id_user' });
     db.Groupe.belongsToMany(db.Etudiant, { through: db.Groupe_etudiant, foreignKey: 'id_groupe' });
