@@ -19,10 +19,13 @@ const groupeRouter = require('./route/groupe.route');
 const GEtudiantRouter = require('./route/reaction.commentaire.route');
 const NiveauEtudiantAnneeRouter = require('./route/Niveau_Etudiant_Annee.route');
 const dashboardRoute = require('./route/dashboard.route');
+const uploadRoute = require('./route/upload.image.route');
 const cors = require('cors');
 const morgan = require('morgan');
-// const cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 
+
+global.__basedir = __dirname
 
 app.set('views', path.join(__dirname,'views'));
 var Option = {
@@ -31,7 +34,7 @@ var Option = {
 }
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-// app.use(cookieParser());
+app.use(cookieParser());
 
 app.use(cors(Option));
 app.use(morgan('dev'))
@@ -50,7 +53,8 @@ app.use(groupeRouter);
 app.use(GEtudiantRouter);
 app.use(NiveauEtudiantAnneeRouter);
 app.use(dashboardRoute);
-// app.use('/Images', express.static('./Images'))
+app.use(uploadRoute);
+app.use(express.static(path.join(__dirname, './ressources/static/assets/')));
 
 
 

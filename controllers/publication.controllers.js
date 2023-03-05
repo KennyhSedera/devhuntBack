@@ -6,20 +6,6 @@ const Domaine = Table.Domaine
 const Etudiant = Table.Etudiant
 
 module.exports = {
-   async add (req, res){
-   await Publication.create(req.body)
-        .then(data=> {
-                res.send({
-                    success:'Publication ajouté avec succèe '
-                })
-            }) 
-        .catch(err=>{
-          res.status(500).send({
-                  error:
-                    err.message||"Une erreur se produite lors de l'ajout de ce Publication "
-              })
-        })
-    },
     async show (req, res){
         await  Publication.findOne(req.params.id_pub)
         .then(data=> {
@@ -90,6 +76,5 @@ module.exports = {
             err.message||"Une erreur se produite lors de l'ajout de ce Publication "
         })
     });
-
     }
 }
