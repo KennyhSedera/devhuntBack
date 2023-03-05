@@ -86,6 +86,10 @@ async function initialize () {
 
     db.Publication.belongsToMany(db.Matiere, { through: db.Pub_Matiere, foreignKey: 'id_matiere'});
     db.Matiere.belongsToMany(db.Publication, { through: db.Pub_Matiere, foreignKey: 'id_pub'});
+    db.Publication.hasMany(db.Pub_Matiere, {foreignKey:'id_pub'});
+    db.Pub_Matiere.belongsTo(db.Publication, {foreignKey:'id_pub'});
+    db.Matiere.hasMany(db.Pub_Matiere, {foreignKey:'id_matiere'});
+    db.Pub_Matiere.belongsTo(db.Matiere, {foreignKey:'id_matiere'});
 
     db.Commentaire.hasMany(db.Reponse,{foreignKey: {name : 'id_commentairerep'}})
     db.Reponse.belongsTo(db.Commentaire,{foreignKey: {name : 'id_commentairerep'}})

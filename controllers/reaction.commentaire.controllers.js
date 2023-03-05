@@ -1,3 +1,4 @@
+const { Sequelize } = require('../models/index')
 const Table = require('../models/index')
 const Commentaire = Table.Commentaire
 const Reaction = Table.ReactionCommentaire
@@ -32,8 +33,8 @@ module.exports = {
     async index (req,res){
         await Reaction.findAll({
             where:{id_commentaire:req.params.id},
-            include:[Etudiant, 
-                // {exclude:["email","adress","contact", "sexe","date_naissance","lieu_naissance","statut_compte","user_permission","password","password_Recup","createdAt","updatedAt","id_parcour"]}
+            include:[{model: Etudiant, 
+                exclude:["email","adress","contact", "sexe","date_naissance","lieu_naissance","statut_compte","user_permission","password","password_Recup","createdAt","updatedAt","id_parcour"]}
             ]
         })
         .then(data=>{
@@ -62,7 +63,7 @@ module.exports = {
         })               
     },
     async update (req,res){
-        await Reaction.update(req.body,{
+        await Reaction.update({reaction_name:req.body.reaction_name},{
                   where:{id:req.params.id}})
         .then(data=>{
            res.send({ success :'Reaction modifié avec succèe' })
@@ -71,4 +72,17 @@ module.exports = {
              res.status(500).send({error:  err.message || "Une erreur se produite lors de la modification de ce Reaction "});
          })   
     },
-}
+    async countReaction (req, res){
+        await Reaction.findOne({ 
+            where:{id_commentaire:req.params.id},
+            attributes:[[Sequelize.fn('COUNT',Sequelize.col('id')), 'nbrREACT']]
+        })
+        .then((data) => {
+            res.send({totale: data})
+        }).catch((err) => {
+            res.send({
+                error: err.message || "Une erreur se produite lors de la comptage de reaction"
+            })
+        });
+    }
+} 
