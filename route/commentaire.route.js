@@ -5,6 +5,8 @@ const commentaireController =require('../controllers/commentaire.controllers')
 //commentaire
 app.get('/commentaire/:id_pub',commentaireController.index)
 
+app.get('/countCommentaire/:id_pub',commentaireController.countCommentaire)
+
 app.post('/commentaire', commentaireController.add)
 
 app.get('/commentaire/:id_commentaire',commentaireController.show)

@@ -33,7 +33,7 @@ module.exports = {
     },
     async index (req,res){
         await Publication.findAll({
-          include:[Etudiant, Domaine,{model:pubmatiere, include:[Matiere]}]
+          include:[{model:Etudiant, attributes:['nom', 'prenom', 'photo_Profil']}, Domaine,{model:pubmatiere, include:[Matiere]}]
         })
         .then(data=>{
           res.send({Publication :data})

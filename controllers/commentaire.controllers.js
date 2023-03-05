@@ -1,3 +1,4 @@
+const { Sequelize } = require('../models/index')
 const Table = require('../models/index')
 const Commentaire = Table.Commentaire
 const Etudiant = Table.Etudiant
@@ -34,7 +35,7 @@ module.exports = {
     async index (req,res){
         await Commentaire.findAll({
           where:{id_pub: req.params.id_pub},
-          include:[{model:Etudiant},{model:Publication, include:[Domaine, Matiere]}]
+          include:[{model:Etudiant, attributes:['nom', 'prenom', 'matricule', 'photo_Profil']},{model:Publication, include:[Domaine, Matiere]}]
         })
         .then(data=>{
           res.send({Commentaire :data})
@@ -68,5 +69,17 @@ module.exports = {
          .catch(err=>{
              res.status(500).send({error:  err.message || "Une erreur se produite lors de la modification de ce Commentaire "});
          })   
+    },
+    async countCommentaire (req, res){
+      await Commentaire.findOne({
+        where:req.body,
+        attributes:[[Sequelize.fn('COUNT', Sequelize.col('id_commentaire')), 'nbrCommentairePub'], 'id_pub'],
+        group:['id_pub']
+      })
+      .then((data) => {
+        res.send({Commentaire: data})
+      }).catch((err) => {
+        res.send({error: err.message || "Une erreur se produite lors de la comptage commentaire"})
+      });
     }
 }

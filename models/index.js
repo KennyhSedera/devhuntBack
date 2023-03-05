@@ -45,10 +45,10 @@ async function initialize () {
     db.Matiere = require("./MatiereModel")(sequelize, Sequelize);
     db.Groupe = require("./GroupeMessage")(sequelize, Sequelize);
     db.Reponse = require("./ReponseModel")(sequelize, Sequelize);
+    db.Niveau_etudiant = require("./Niveau_Etudiant_Annee")(sequelize, Sequelize);
     db.ReactionCommentaire = require("./ReactionCommentaireModel")(sequelize, Sequelize);
     db.Groupe_etudiant = sequelize.define( "Groupe_etudiant", {}, { timestamps: false });
     db.Pub_Matiere = sequelize.define( "Pub_Matiere", {}, { timestamps: false });
-    db.Niveau_etudiant = sequelize.define( "Niveau_etudiant", {}, { timestamps: false });
 
     db.Parcours.hasMany(db.Etudiant, { foreignKey: 'id_parcour' });
     db.Etudiant.belongsTo(db.Parcours, { foreignKey: 'id_parcour' });
@@ -80,9 +80,12 @@ async function initialize () {
     db.Publication.hasMany(db.Commentaire, { foreignKey: 'id_pub' });
     db.Commentaire.belongsTo(db.Publication, { foreignKey: 'id_pub' });
 
-    db.Etudiant.belongsToMany(db.Annee, { through: db.Niveau_etudiant, foreignKey: 'id_etudiant' });
-    db.Annee.belongsToMany(db.Etudiant, { through: db.Niveau_etudiant, foreignKey: 'id_annee' });
-    db.Niveau.belongsToMany(db.Etudiant, { through: db.Niveau_etudiant, foreignKey: 'id_niveau' });
+    db.Etudiant.hasMany(db.Niveau_etudiant, {foreignKey: 'id_etudiant'});
+    db.Niveau_etudiant.belongsTo(db.Etudiant, {foreignKey: 'id_etudiant'});
+    db.Annee.hasMany(db.Niveau_etudiant, {foreignKey: 'id_annee'});
+    db.Niveau_etudiant.belongsTo(db.Annee, {foreignKey: 'id_annee'});
+    db.Niveau.hasMany(db.Niveau_etudiant, {foreignKey: 'id_niveau'} );
+    db.Niveau_etudiant.belongsTo(db.Niveau, {foreignKey: 'id_niveau'} );
 
     db.Publication.belongsToMany(db.Matiere, { through: db.Pub_Matiere, foreignKey: 'id_matiere'});
     db.Matiere.belongsToMany(db.Publication, { through: db.Pub_Matiere, foreignKey: 'id_pub'});
