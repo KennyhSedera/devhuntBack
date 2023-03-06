@@ -13,6 +13,7 @@ module.exports = {
     PASSWORD: 'tFWKAsVbYU',
     Option:{
         HOST: 'sql8.freesqldatabase.com',
-        dialect: 'mysql'
+        dialect: 'mysql',
+        logging: false
     }
 }
