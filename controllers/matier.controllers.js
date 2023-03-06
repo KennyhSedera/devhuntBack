@@ -30,7 +30,7 @@ module.exports = {
     async index (req,res){
         await Matier.findAll()
         .then(data=>{
-          res.send({Matier :data})
+          res.send({Matiere :data})
         }) 
         .catch(err=>{
           res.status(500).send({

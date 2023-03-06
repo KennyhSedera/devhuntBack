@@ -30,7 +30,7 @@ module.exports = {
     async index (req,res){
         await Parcour.findAll()
         .then(data=>{
-          res.send({Parcour :data})
+          res.send({Parcours :data})
         }) 
         .catch(err=>{
           res.status(500).send({
