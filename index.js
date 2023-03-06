@@ -25,6 +25,19 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 
 
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
+  });
+
+  io.on('connection', (socket) => {
+    socket.on('chat message', msg => {
+      io.emit('chat message', msg);
+    });
+  });
+ 
 global.__basedir = __dirname
 
 app.set('views', path.join(__dirname,'views'));
@@ -59,7 +72,7 @@ app.use(express.static(path.join(__dirname, './ressources/static/assets/')));
 
 
 sequelize.sync().then(()=> {
-    app.listen(PORT, ()=>{
+    server.listen(PORT, ()=>{
         console.log(`Server is running at port ${PORT}`)
     });
 })

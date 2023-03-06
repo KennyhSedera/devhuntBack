@@ -20,13 +20,15 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "http": "^0.0.1-security",
     "joi": "^17.8.3",
     "jsonwebtoken": "^9.0.0",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "mysql": "^2.18.1",
-    "mysql2": "^3.2.0",
+    "mysql2": "^2.2.5",
     "qrcode": "^1.5.1",
-    "sequelize": "^6.29.0"
+    "sequelize": "^6.29.0",
+    "socket.io": "^4.6.1"
   }
 }
