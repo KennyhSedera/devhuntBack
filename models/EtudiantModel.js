@@ -16,6 +16,7 @@ module.exports = (sequelize, Sequelize)=>{
         lieu_naissance:{  type: Sequelize.STRING, allowNull: false },
         statut_compte:{ type:Sequelize.STRING, },
         user_permission:{ type:Sequelize.STRING, },
+        user_role:{ type:Sequelize.STRING, },
         password:{ type:Sequelize.STRING,
             set(value) {
                 bcrypt.genSaltAsync(10)
@@ -25,7 +26,7 @@ module.exports = (sequelize, Sequelize)=>{
         },
         password_Recup:{ type:Sequelize.STRING,
             set(value) {
-                bcrypt.genSaltAsync(10)
+                bcrypt.genSaltSync(10)
                 .then(salt => bcrypt.hashSync(value, salt)) 
                 .then(hash => this.setDataValue('password_Recup', hash));
             } 
@@ -34,7 +35,7 @@ module.exports = (sequelize, Sequelize)=>{
         freezeTableName: true,
         timestamps: true 
     });
-    Etudiant.prototype.comparePassWord = function(password){
+    Etudiant.prototype.comparePassWord = (password)=>{
         return bcrypt.compareSync(password, this.password)
     }
     return Etudiant

@@ -2,7 +2,7 @@ const Table = require('../models/index')
 const Etudiant = Table.Etudiant
 
 module.exports = {
-    async login (req, res){
+    async signin (req, res){
     try{
         const {email,password} = req.body
           const etudiant  = await Etudiant.findOne({
@@ -13,22 +13,21 @@ module.exports = {
               if(!etudiant){
                    res.send({ error:'Cet email ne correspond pas à une compte' })
                   }
-                 else{ 
-                        console.log(etudiant)
-            const isPassWordValid =  await etudiant.comparePassWord(password)   
+                 else{
+            // const isPassWordValid =  await etudiant.comparePassWord(password)   
             // const passwordEtudiant = Etudiant.password
                 //   const status = etudiant.statut_compte
                 // if(status){
-                      if(isPassWordValid){
+                      // if(isPassWordValid){
                           res.send({
-                               Etudiant : 'etudiant',
+                               Etudiant : etudiant,
                               })
-                       }
-                       else {
-                           res.send({
-                           error:'Le mot de passe que vous avez saisi est incorrecte'
-                       })
-                     }
+                    //    }
+                    //    else {
+                    //        res.send({
+                    //        error:'Le mot de passe que vous avez saisi est incorrecte'
+                    //    })
+                    //  }
                 //    }
                 //    else {
                 //        res.send({

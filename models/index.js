@@ -21,7 +21,7 @@ async function initialize () {
         config.Option
     );
 
-    // initialize()
+    initialize()
     
     try{
         sequelize.authenticate()

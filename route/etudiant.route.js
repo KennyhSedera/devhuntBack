@@ -19,6 +19,6 @@ app.put('/etudiant/:id_user', etudiantController.update)
 
 app.delete('/etudiant/:id_user', etudiantController.delete)
 
-app.post('/signin', signin.login)
+app.post('/signin', signin.signin)
 
 module.exports = app
