@@ -21,4 +21,6 @@ app.delete('/etudiant/:id_user', etudiantController.delete)
 
 app.post('/signin', signin.signin)
 
+app.put('/user',etudiantController.updateAccount)
+
 module.exports = app

@@ -3,11 +3,12 @@ const app = express.Router()
 
 const publicationController =require('../controllers/publication.controllers')
 const upload =require('../models/images')
-const imgControlaire = require('../controllers/images.controller')
 //publication
 app.get('/publication',publicationController.index)
 
 app.post('/publication', upload.uploadFileMiddleWare, upload.register)
+
+app.post('/matierepub', publicationController.registerMatierPub)
 
 app.get('/publication/:id_pub',publicationController.show)
 

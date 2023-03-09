@@ -12,7 +12,7 @@ async function initialize () {
     });
 }
 
-
+ 
     // Connexion a la DB
     const sequelize = new Sequelize(
         config.DATABASE, 

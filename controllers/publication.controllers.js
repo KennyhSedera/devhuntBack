@@ -59,7 +59,6 @@ module.exports = {
     async register(req, res){
     const publication = await Publication.create(req.body)
     
-    
     // 2. Find the Classes row
     const matiereRow = await Matiere.findOne({id_matiere:req.body.id_matiere});
     
@@ -67,7 +66,7 @@ module.exports = {
     await publication.addMatiere(matiereRow, { through: pubmatiere })
     .then(data=> {
       res.send({
-          success:'Publication ajouté avec succèe '
+          success:data
       })
     }) 
     .catch(err=>{
@@ -76,6 +75,14 @@ module.exports = {
             err.message||"Une erreur se produite lors de l'ajout de ce Publication "
         })
     });
-
+    },
+    async registerMatierPub (req, res){
+      console.log(req.body);
+      await pubmatiere.create(req.body)
+      .then(() => {
+        res.send({success:'Matiere ajouter'})
+      }).catch((err) => {
+        res.send({error: err.message})
+      });
     }
 }

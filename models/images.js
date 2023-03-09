@@ -26,13 +26,13 @@ module.exports = {
     
     
     // 2. Find the Classes row
-    const matiereRow = await Matiere.findOne({id_matiere:req.body.id_matiere});
-    
+    const matiereRow = await Matiere.findOne({id_matiere: req.body.id_matiere});
+    thenc
     // 3. INSERT the association in Enrollments table
     await publication.addMatiere(matiereRow, { through: pubmatiere })
     .then(data=> {
         res.send({
-            success:'Publication ajouté avec succèe '
+            success:data
         })
     }) 
     .catch(err=>{

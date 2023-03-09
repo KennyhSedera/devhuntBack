@@ -5,10 +5,14 @@ module.exports = (sequelize, Sequelize)=>{
             primaryKey:true,
             autoIncrement:true
         },
-        libelle_annee:{
+        annee1:{
             type:Sequelize.STRING,
             allowNull:false
-        }
+        },
+        annee2:{
+            type:Sequelize.STRING,
+            allowNull:false
+        },
     },{
         freezeTableName: true,
         timestamps: false 

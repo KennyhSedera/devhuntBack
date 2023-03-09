@@ -67,4 +67,17 @@ module.exports = {
              res.status(500).send({error:  err.message || "Une erreur se produite lors de la modification de ce Etudiant "});
          })   
     },
+    
+    async updateAccount (req,res){
+      await Etudiant.update(req.body.account,{where:req.body.where})
+        .then(data=>{
+          res.send({ success :'Utilisateur modifié avec succèe' })
+        })
+        .catch(err =>{
+         res.status(500).send({
+                         error:  err.message || "Une erreur se produite lors de la modification de cet utilisateur " 
+                     });
+       })
+       
+     },
 }

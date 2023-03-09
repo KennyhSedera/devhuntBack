@@ -41,10 +41,12 @@ app.get('/', (req, res) => {
 global.__basedir = __dirname
 
 app.set('views', path.join(__dirname,'views'));
+
 var Option = {
     credentials: true,
      origin: '*' // ['http://localhost:8888/', /*'https://frontdevhunt.vercel.app/'*/]
 }
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
