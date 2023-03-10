@@ -6,7 +6,7 @@ const bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'));
 module.exports = {
   async signin (req, res){
     try{
-      const {email,password} = req.body
+      const {email,password} = req.body.where
       const etudiant  = await Etudiant.findOne({ where : {email: email} })
 
       //  .then(Etudiant=>{
@@ -14,7 +14,7 @@ module.exports = {
         res.send({ error:'Cet email ne correspond pas à une compte' })
       }
       else{ 
-        var passwordIsValid = bcrypt.compareSync( req.body.password, etudiant.password );
+        var passwordIsValid = bcrypt.compareSync( password, etudiant.password );
 
         // const passwordEtudiant = Etudiant.password
         //   const status = etudiant.statut_compte
